@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fournisseurs - Darou Salam Business</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-icon"><i class="fa-solid fa-gem"></i></div>
+        <div>
+          <h2>Darou Salam</h2>
+          <p>Business</p>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <a href="../index.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> <span>Tableau de bord</span></a>
+        <a href="produits.html" class="nav-item"><i class="fa-solid fa-box"></i> <span>Produits</span></a>
+        <a href="ventes.html" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> <span>Ventes</span></a>
+        <a href="stock.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> <span>Stock</span></a>
+        <a href="clients.html" class="nav-item"><i class="fa-solid fa-users"></i> <span>Clients</span></a>
+        <a href="fournisseurs.html" class="nav-item active"><i class="fa-solid fa-truck"></i> <span>Fournisseurs</span></a>
+        <a href="historique.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i> <span>Historique</span></a>
+        <a href="rapports.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> <span>Rapports</span></a>
+        <a href="parametres.html" class="nav-item"><i class="fa-solid fa-gear"></i> <span>Paramètres</span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header suppliers-header">
+        <h2>Fournisseurs</h2>
+        <button id="addSupplierBtn" class="primary-btn">+ Nouveau fournisseur</button>
+      </header>
+
+      <table id="suppliersTable" class="suppliers-table">
+        <thead>
+          <tr class="suppliers-table-header">
+            <th>Entreprise / Nom</th>
+            <th>Téléphone</th>
+            <th>Adresse</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/fournisseurs.js"></script>
+  <script src="../assets/js/brand.js"></script>
+</body>
+</html>

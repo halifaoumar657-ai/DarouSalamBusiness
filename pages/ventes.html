@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caisse & Ventes - Darou Salam Business</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .sales-layout {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .sales-main {
+      flex: 2;
+      position: relative;
+    }
+
+    .sale-search-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #1a1a1a;
+      color: #fff;
+      box-sizing: border-box;
+    }
+
+    .sale-search-results {
+      background: #222;
+      border-radius: 8px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .sale-search-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #2a2a2a;
+      border: 1px solid var(--gold, #d4af37);
+      border-radius: 0 0 8px 8px;
+      z-index: 9999;
+      max-height: 250px;
+      overflow-y: auto;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    }
+
+    .cart-panel {
+      flex: 1;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .cart-items {
+      margin: 15px 0;
+    }
+
+    .cart-divider {
+      border-color: #333;
+    }
+
+    .cart-summary {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+    }
+
+    .total-amount {
+      color: var(--gold, #d4af37);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 5px;
+      color: #888;
+    }
+
+    .sale-select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #333;
+      border-radius: 6px;
+    }
+
+    .payment-select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #333;
+      border-radius: 6px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-icon"><i class="fa-solid fa-gem"></i></div>
+        <div>
+          <h2>Darou Salam</h2>
+          <p>Business</p>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <a href="../index.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> <span>Tableau de bord</span></a>
+        <a href="produits.html" class="nav-item"><i class="fa-solid fa-box"></i> <span>Produits</span></a>
+        <a href="ventes.html" class="nav-item active"><i class="fa-solid fa-cart-shopping"></i> <span>Ventes</span></a>
+        <a href="stock.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> <span>Stock</span></a>
+        <a href="clients.html" class="nav-item"><i class="fa-solid fa-users"></i> <span>Clients</span></a>
+        <a href="fournisseurs.html" class="nav-item"><i class="fa-solid fa-truck"></i> <span>Fournisseurs</span></a>
+        <a href="historique.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i> <span>Historique</span></a>
+        <a href="rapports.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> <span>Rapports</span></a>
+        <a href="parametres.html" class="nav-item"><i class="fa-solid fa-gear"></i> <span>Paramètres</span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <h2>Caisse & Nouvelles Ventes</h2>
+      </header>
+
+      <div class="sales-layout">
+        <div class="sales-main">
+  <input 
+    type="text" 
+    id="searchProductSale" 
+    class="sale-search-input" 
+    placeholder="Tapez pour chercher (ex: boucle)..." 
+    autocomplete="off"
+  >
+  <div id="saleSearchResults" class="sale-search-dropdown"></div>
+</div>
+
+        <div class="cart-panel">
+          <h3>Panier</h3>
+          <div id="cartItems" class="cart-items"></div>
+          <hr class="cart-divider">
+          <div class="cart-summary">
+            <strong>Total :</strong>
+            <span id="totalAmount" class="total-amount">0 FCFA</span>
+          </div>
+          
+          <label class="field-label" for="clientSelect">Client :</label>
+          <select id="clientSelect" class="sale-select"></select>
+          
+          <label class="field-label" for="paymentMethod">Mode de paiement :</label>
+          <select id="paymentMethod" class="payment-select">
+            <option value="Espèces">Espèces</option>
+            <option value="Wave">Wave</option>
+            <option value="Orange Money">Orange Money</option>
+          </select>
+          
+          <button id="checkoutBtn" class="primary-btn checkout-btn">Valider la vente</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/ventes.js"></script>
+  <script src="../assets/js/brand.js"></script>
+</body>
+</html>

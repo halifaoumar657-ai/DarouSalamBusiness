@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Connexion — Darou Salam Business</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Style principal -->
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
+    <!-- Style connexion -->
+    <link
+        rel="stylesheet"
+        href="assets/css/login.css"
+    >
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <div class="login-card">
+
+            <!-- LOGO -->
+            <div class="login-logo">
+
+                <div class="login-logo-icon">
+                    <i class="fa-solid fa-gem"></i>
+                </div>
+
+                <h1>Darou Salam</h1>
+
+                <span>Business</span>
+
+            </div>
+
+
+            <!-- TITRE -->
+            <div class="login-header">
+
+                <h2>Bienvenue</h2>
+
+                <p>
+                    Connectez-vous à votre espace administrateur
+                </p>
+
+            </div>
+
+
+            <!-- FORMULAIRE -->
+            <form id="loginForm">
+
+                <!-- EMAIL -->
+                <div class="form-group">
+
+                    <label for="email">
+                        Adresse e-mail
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="admin@exemple.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- MOT DE PASSE -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Mot de passe
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Votre mot de passe"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                            aria-label="Afficher le mot de passe"
+                        >
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+                <div
+                    id="loginMessage"
+                    class="login-message"
+                ></div>
+
+
+                <!-- BOUTON -->
+                <button
+                    type="submit"
+                    class="login-btn"
+                    id="loginBtn"
+                >
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Se connecter
+
+                </button>
+
+            </form>
+
+
+            <!-- FOOTER -->
+            <div class="login-footer">
+
+                <span>
+                    © 2026 Darou Salam Business
+                </span>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="assets/js/config.js"></script>
+
+
+    <!-- =====================================================
+         AUTHENTIFICATION
+    ====================================================== -->
+
+    <script>
+
+        console.log("Page de connexion chargée");
+
+
+        /* -----------------------------------------------------
+           RÉCUPÉRATION DES ÉLÉMENTS
+        ----------------------------------------------------- */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const emailInput =
+            document.getElementById("email");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+
+        const loginBtn =
+            document.getElementById("loginBtn");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+
+        /* -----------------------------------------------------
+           VÉRIFICATION SUPABASE
+        ----------------------------------------------------- */
+
+        if (!supabaseClient) {
+
+            console.error(
+                "Supabase n'est pas correctement configuré."
+            );
+
+            loginMessage.textContent =
+                "Erreur de configuration Supabase.";
+
+            loginMessage.classList.add("error");
+
+        }
+
+
+        /* -----------------------------------------------------
+           AFFICHER / MASQUER LE MOT DE PASSE
+        ----------------------------------------------------- */
+
+        togglePassword.addEventListener(
+            "click",
+            () => {
+
+                const isPassword =
+                    passwordInput.type === "password";
+
+
+                passwordInput.type =
+                    isPassword
+                        ? "text"
+                        : "password";
+
+
+                togglePassword.innerHTML =
+                    isPassword
+                        ? '<i class="fa-solid fa-eye-slash"></i>'
+                        : '<i class="fa-solid fa-eye"></i>';
+
+            }
+        );
+
+
+        /* -----------------------------------------------------
+           CONNEXION
+        ----------------------------------------------------- */
+
+        loginForm.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+
+                /* Récupération des valeurs */
+
+                const email =
+                    emailInput.value.trim();
+
+                const password =
+                    passwordInput.value;
+
+
+                /* Nettoyage du message */
+
+                loginMessage.textContent = "";
+
+                loginMessage.className =
+                    "login-message";
+
+
+                /* Désactivation du bouton */
+
+                loginBtn.disabled = true;
+
+                loginBtn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Connexion...';
+
+
+                console.log(
+                    "Tentative de connexion..."
+                );
+
+
+                try {
+
+                    /* Connexion Supabase */
+
+                    const { data, error } =
+                        await supabaseClient.auth.signInWithPassword({
+                            email: email,
+                            password: password
+                        });
+
+
+                    /* Erreur */
+
+                    if (error) {
+
+                        console.error(
+                            "Erreur connexion :",
+                            error
+                        );
+
+
+                        loginMessage.textContent =
+                            "E-mail ou mot de passe incorrect.";
+
+                        loginMessage.classList.add(
+                            "error"
+                        );
+
+
+                        loginBtn.disabled = false;
+
+                        loginBtn.innerHTML =
+                            '<i class="fa-solid fa-right-to-bracket"></i> Se connecter';
+
+
+                        return;
+                    }
+
+
+                    /* Connexion réussie */
+
+                    console.log(
+                        "Connexion réussie :",
+                        data.user
+                    );
+
+
+                    loginMessage.textContent =
+                        "Connexion réussie. Redirection...";
+
+                    loginMessage.classList.add(
+                        "success"
+                    );
+
+
+                    /* Redirection */
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                "index.html";
+
+                        },
+                        500
+                    );
+
+                }
+
+
+                /* Erreur inattendue */
+
+                catch (error) {
+
+                    console.error(
+                        "Erreur inattendue :",
+                        error
+                    );
+
+
+                    loginMessage.textContent =
+                        "Une erreur est survenue. Réessayez.";
+
+                    loginMessage.classList.add(
+                        "error"
+                    );
+
+
+                    loginBtn.disabled = false;
+
+                    loginBtn.innerHTML =
+                        '<i class="fa-solid fa-right-to-bracket"></i> Se connecter';
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>

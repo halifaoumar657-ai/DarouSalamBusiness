@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paramètres - Darou Salam Business</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-icon"><i class="fa-solid fa-gem"></i></div>
+        <div>
+          <h2>Darou Salam</h2>
+          <p>Business</p>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <a href="../index.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> <span>Tableau de bord</span></a>
+        <a href="produits.html" class="nav-item"><i class="fa-solid fa-box"></i> <span>Produits</span></a>
+        <a href="ventes.html" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> <span>Ventes</span></a>
+        <a href="stock.html" class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> <span>Stock</span></a>
+        <a href="clients.html" class="nav-item"><i class="fa-solid fa-users"></i> <span>Clients</span></a>
+        <a href="fournisseurs.html" class="nav-item"><i class="fa-solid fa-truck"></i> <span>Fournisseurs</span></a>
+        <a href="historique.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i> <span>Historique</span></a>
+        <a href="rapports.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> <span>Rapports</span></a>
+        <a href="parametres.html" class="nav-item active"><i class="fa-solid fa-gear"></i> <span>Paramètres</span></a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <h2>Paramètres de l'application</h2>
+      </header>
+
+      <div class="settings-container">
+        <div class="settings-card settings-card-spaced">
+          <h3 class="settings-title"><i class="fa-solid fa-store"></i> Profil de l'entreprise</h3>
+          
+          <label class="form-label">Nom de la boutique / Entreprise :</label>
+          <input type="text" id="companyName" class="form-control" value="Darou Salam Business">
+
+          <label class="form-label">Téléphone :</label>
+          <input type="text" id="companyPhone" class="form-control" placeholder="+221 ...">
+
+          <label class="form-label">Adresse / Emplacement :</label>
+          <input type="text" id="companyAddress" class="form-control" placeholder="Dakar, Sénégal">
+
+          <label class="form-label">Devise principale :</label>
+          <select id="currencySelect" class="form-control form-control-last">
+            <option value="FCFA">FCFA (XOF)</option>
+            <option value="EUR">Euro (€)</option>
+            <option value="USD">Dollar ($)</option>
+          </select>
+
+          <button id="saveSettingsBtn" class="primary-btn settings-submit-btn">Enregistrer les modifications</button>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-alert-title"><i class="fa-solid fa-triangle-exclamation"></i> Alertes de stock</h3>
+          
+          <label class="form-label">Seuil de stock faible par défaut :</label>
+          <input type="number" id="defaultMinStock" class="form-control" value="5" min="1">
+          
+          <button id="saveStockAlertBtn" class="primary-btn stock-alert-btn">Mettre à jour le seuil</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/parametres.js"></script>
+  <script src="../assets/js/brand.js"></script>
+</body>
+</html>
